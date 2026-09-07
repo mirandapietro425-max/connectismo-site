@@ -4954,3 +4954,54 @@ h3 {
     }
   }
 }
+
+/* Aberturas editoriais: mais presença visual em todas as páginas internas. */
+.page-hero .eyebrow {
+  color: var(--sun);
+}
+.page-hero p {
+  max-width: 45ch;
+  font-size: 1.08rem;
+}
+.page-hero-image img {
+  filter: saturate(1.06) contrast(1.02);
+}
+@media (max-width: 1100px) {
+  .page-hero .container {
+    padding-right: min(44%, 20rem);
+  }
+  .page-hero-image {
+    width: 55%;
+    opacity: .58;
+  }
+}
+@media (max-width: 640px) {
+  .page-hero {
+    min-height: 31rem;
+    padding: 3.5rem 0 3.25rem;
+  }
+  .page-hero::before {
+    top: 10%;
+    left: -5rem;
+  }
+  .page-hero .container {
+    padding-right: 0;
+  }
+  .page-hero h1 {
+    max-width: 9ch;
+    font-size: clamp(3rem, 15vw, 5rem);
+  }
+  .page-hero-image {
+    top: auto;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 58%;
+    border: 0;
+    border-radius: 0;
+    opacity: .28;
+  }
+  .page-hero-image::after {
+    background: linear-gradient(180deg, #12395b 0%, rgba(18,57,91,.78) 35%, rgba(18,57,91,.12) 100%);
+  }
+}
