@@ -18,6 +18,12 @@ const pages: Page[] = [
   { key: "sobre", href: "/sobre", label: "O projeto" },
 ];
 
+const accessibilityMascots = {
+  welcome: "/assets/mascote/acessibilidade.png",
+  help: "/assets/mascote/ajuda.png",
+  calm: "/assets/mascote/cuidado.png",
+};
+
 type LocalVideo = { src: string; poster: string; title: string; description: string; duration: string; context: string };
 const localVideos: Record<string, LocalVideo> = {
   inclusion: {
@@ -189,25 +195,25 @@ function Accessibility() {
   return <div className="accessibility">
     <div className={"access-helpers " + (helpersOpen ? "open" : "")}>
       {helpersOpen && <div className="helper-bubble" role="dialog" aria-label="Personagens de ajuda">
-        <div className="helper-bubble-head"><div><span className="access-overline">Ajuda rápida</span><strong>Encontre seu ritmo</strong></div><button className="helper-close" onClick={() => setHelpersOpen(false)} aria-label="Fechar personagens de ajuda"><X size={15} /></button></div>
+        <div className="helper-bubble-head"><div><span className="access-overline">Ajuda rápida</span><strong>Encontre seu ritmo</strong></div><div className="helper-bubble-actions"><img className="helper-bubble-mascot" src={accessibilityMascots.help} alt="" /><button className="helper-close" onClick={() => setHelpersOpen(false)} aria-label="Fechar personagens de ajuda"><X size={15} /></button></div></div>
         <p>Escolha um personagem para ajustar a experiência sem abrir o painel completo.</p>
         <div className="helper-grid">
-          <button className="helper-card" onClick={helpWithReading} aria-label="Ouvir o conteúdo da página"><span className="helper-avatar helper-coral" aria-hidden="true" /><strong>Ouvir</strong><small>Leio para você</small></button>
-          <button className="helper-card" onClick={helpWithText} aria-label="Aumentar o tamanho do texto"><span className="helper-avatar helper-lilac" aria-hidden="true" /><strong>Ler</strong><small>Texto maior</small></button>
-          <button className="helper-card" onClick={helpWithCalm} aria-label="Pausar movimentos da página"><span className="helper-avatar helper-sun" aria-hidden="true" /><strong>Calma</strong><small>Menos movimento</small></button>
+          <button className="helper-card" onClick={helpWithReading} aria-label="Ouvir o conteúdo da página"><span className="helper-card-mascot helper-coral" aria-hidden="true"><img src={accessibilityMascots.help} alt="" /></span><strong>Ouvir</strong><small>Leio para você</small></button>
+          <button className="helper-card" onClick={helpWithText} aria-label="Aumentar o tamanho do texto"><span className="helper-card-mascot helper-lilac" aria-hidden="true"><img src={accessibilityMascots.welcome} alt="" /></span><strong>Ler</strong><small>Texto maior</small></button>
+          <button className="helper-card" onClick={helpWithCalm} aria-label="Pausar movimentos da página"><span className="helper-card-mascot helper-sun" aria-hidden="true"><img src={accessibilityMascots.calm} alt="" /></span><strong>Calma</strong><small>Menos movimento</small></button>
         </div>
       </div>}
-      <button className="helper-toggle" onClick={() => setHelpersOpen((value) => !value)} aria-expanded={helpersOpen} aria-label={helpersOpen ? "Fechar personagens de ajuda" : "Abrir personagens de ajuda"} data-testid="button-accessibility-helpers"><span className="helper-faces" aria-hidden="true"><span className="helper-avatar helper-coral" /><span className="helper-avatar helper-lilac" /><span className="helper-avatar helper-sun" /></span><span className="helper-toggle-label">Precisa de ajuda?</span></button>
+      <button className="helper-toggle" onClick={() => setHelpersOpen((value) => !value)} aria-expanded={helpersOpen} aria-label={helpersOpen ? "Fechar personagens de ajuda" : "Abrir personagens de ajuda"} data-testid="button-accessibility-helpers"><span className="helper-faces" aria-hidden="true"><span className="helper-avatar helper-avatar-image helper-coral"><img src={accessibilityMascots.help} alt="" /></span><span className="helper-avatar helper-avatar-image helper-lilac"><img src={accessibilityMascots.welcome} alt="" /></span><span className="helper-avatar helper-avatar-image helper-sun"><img src={accessibilityMascots.calm} alt="" /></span></span><span className="helper-toggle-label">Precisa de ajuda?</span></button>
     </div>
     {readingGuide && <div className="reading-guide" style={{ top: guideY }} aria-hidden="true" />}
     {open && <div id="accessibility-panel" className="access-panel" role="dialog" aria-label="Opções de acessibilidade">
-      <div className="access-panel-head"><div><span className="access-overline">Acessibilidade</span><h3>Personalize sua experiência</h3><p>Ative apenas o que você precisa. As opções ficam nesta sessão.</p></div><button className="access-close" onClick={() => setOpen(false)} aria-label="Fechar opções de acessibilidade"><X size={17} /></button></div>
+      <div className="access-panel-head"><div className="access-panel-copy"><span className="access-overline">Acessibilidade</span><h3>Personalize sua experiência</h3><p>Ative apenas o que você precisa. A mascote fica aqui para orientar — os controles continuam sempre disponíveis em texto.</p></div><div className="access-panel-visual"><img className="access-panel-mascot" src={accessibilityMascots.welcome} alt="Mascote do Connectismo com as mãos abertas, convidando você a escolher um apoio" /><button className="access-close" onClick={() => setOpen(false)} aria-label="Fechar opções de acessibilidade"><X size={17} /></button></div></div>
       <div className="access-section"><span className="access-label">Tamanho do texto</span><div className="access-stepper"><button onClick={() => setFontSize(fontSize === "extra" ? "large" : "normal")} aria-label="Diminuir tamanho do texto">A−</button><strong aria-live="polite">{fontLabels[fontSize]}</strong><button onClick={() => setFontSize(fontSize === "normal" ? "large" : "extra")} aria-label="Aumentar tamanho do texto">A+</button></div></div>
       <div className="access-list">{choices.map((choice) => <button key={choice.id} className="access-choice" aria-pressed={choice.value} onClick={() => choice.set(!choice.value)} data-testid={"button-access-" + choice.id}><span><strong>{choice.label}</strong><small>{choice.hint}</small></span><span className="toggle" aria-hidden="true" /></button>)}</div>
       <div className="access-actions"><button className="access-action" onClick={readPage} aria-pressed={speaking}><Volume2 size={16} /> {speaking ? "Parar leitura" : "Ler página em voz alta"}</button><button className="access-reset" onClick={resetAll}>Restaurar padrão</button></div>
       <p className="access-status" aria-live="polite">{activeCount === 0 ? "Configuração padrão ativa" : activeCount + " recurso" + (activeCount === 1 ? " ativo" : "s ativos")}</p>
     </div>}
-    <button className="access-toggle" onClick={() => setOpen((value) => !value)} aria-expanded={open} aria-controls="accessibility-panel" aria-label={open ? "Fechar painel de acessibilidade" : "Abrir painel de acessibilidade"} data-testid="button-accessibility"><Eye size={16} /> Acessibilidade</button>
+    <button className="access-toggle" onClick={() => setOpen((value) => !value)} aria-expanded={open} aria-controls="accessibility-panel" aria-label={open ? "Fechar painel de acessibilidade" : "Abrir painel de acessibilidade"} data-testid="button-accessibility"><span className="access-toggle-mascot" aria-hidden="true"><img src={accessibilityMascots.welcome} alt="" /></span><Eye size={16} /> <span>Acessibilidade</span>{activeCount > 0 && <span className="access-count" aria-hidden="true">{activeCount}</span>}</button>
   </div>;
 }
 
