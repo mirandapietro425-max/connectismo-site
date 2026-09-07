@@ -2964,7 +2964,7 @@ h3 {
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: .02rem;
+  gap: .5rem;
   color: var(--teal-deep);
   font-size: 1.12rem;
   font-weight: 800;
@@ -2977,6 +2977,11 @@ h3 {
   height: 3.25rem;
   object-fit: contain;
   transition: transform .2s ease;
+}
+.brand-name {
+  display: inline-block;
+  color: var(--teal-deep);
+  letter-spacing: -.07em;
 }
 .brand:hover .brand-logo {
   transform: translateY(-2px);
@@ -4143,6 +4148,9 @@ h3 {
   gap: 3rem;
 }
 .footer .brand {
+  color: var(--paper);
+}
+.footer .brand-name {
   color: var(--paper);
 }
 .footer h3 {
