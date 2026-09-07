@@ -5595,3 +5595,107 @@ body.alto-contraste button {
     gap: .35rem;
   }
 }
+
+
+/* Glossário visual em Libras. */
+.libras-section {
+  padding: 5rem 0 5.5rem;
+  border-block: 1px solid var(--line);
+  background: #eee5d6;
+}
+.libras-intro {
+  align-items: end;
+  margin-bottom: 1.7rem;
+}
+.libras-intro h2 {
+  max-width: 16ch;
+}
+.libras-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: .85rem;
+}
+.libras-grid-compact {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 1.5rem 0 3rem;
+}
+.libras-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 1rem;
+  background: var(--paper);
+  box-shadow: 0 10px 24px rgba(33,66,74,.08);
+}
+.libras-card img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: contain;
+  padding: .35rem;
+  background: linear-gradient(180deg, #f4f0e8 0%, #fff 100%);
+}
+.libras-card-content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: .8rem .85rem 1rem;
+}
+.libras-card-kicker {
+  color: var(--coral);
+  font-family: var(--font-mono);
+  font-size: .58rem;
+  font-weight: 800;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+.libras-card h3 {
+  margin: .22rem 0 .35rem;
+  color: var(--teal-deep);
+  font-size: .95rem;
+}
+.libras-card p {
+  margin: 0;
+  color: var(--muted-foreground);
+  font-size: .72rem;
+  line-height: 1.45;
+}
+.libras-note {
+  max-width: 70ch;
+  margin: 1.5rem 0 0;
+  color: var(--muted-foreground);
+  font-size: .72rem;
+  line-height: 1.5;
+}
+@media (max-width: 900px) {
+  .libras-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+@media (max-width: 640px) {
+  .libras-section {
+    padding: 3.5rem 0 4rem;
+  }
+  .libras-intro {
+    display: block;
+  }
+  .libras-intro .lede {
+    margin-top: 1rem;
+  }
+  .libras-grid,
+  .libras-grid-compact {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: .65rem;
+  }
+  .libras-card-content {
+    padding: .65rem .65rem .8rem;
+  }
+  .libras-card h3 {
+    font-size: .82rem;
+  }
+  .libras-card p {
+    font-size: .66rem;
+  }
+}
