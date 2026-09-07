@@ -3002,6 +3002,18 @@ h3 {
 .nav-link:hover, .nav-link[aria-current="page"] {
   color: var(--teal-deep);
 }
+.nav-link.nav-project {
+  border-radius: 999px;
+  color: var(--coral);
+  background: rgba(228,123,97,.1);
+}
+.nav-link.nav-project:hover, .nav-link.nav-project[aria-current="page"] {
+  color: #fffaf0;
+  background: var(--coral);
+}
+.nav-link.nav-project[aria-current="page"]::after {
+  display: none;
+}
 .nav-link[aria-current="page"]::after {
   position: absolute;
   right: .65rem;
