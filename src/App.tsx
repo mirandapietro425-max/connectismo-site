@@ -1,4 +1,4 @@
-import { useEffect, useState, type ReactNode } from "react";
+import { useEffect, useState, type MouseEvent, type ReactNode } from "react";
 import {
   ArrowDown, ArrowRight, BookOpen, Check, ChevronLeft, ChevronRight,
   CircleHelp, Clock3, Compass, Eye, GraduationCap, HandHeart, HeartHandshake,
@@ -96,7 +96,7 @@ function Header({ active }: { active: PageKey }) {
     <div className="header-inner">
       <Link href="/" className="brand" data-testid="link-brand" aria-label="ConnecTismo, página inicial"><span>Connec</span><span className="brand-pill">Tismo</span></Link>
       <nav className="desktop-nav" aria-label="Navegação principal">{pages.map((page) => <Link key={page.key} href={page.href} className="nav-link" data-testid={`link-nav-${page.key}`} aria-current={active === page.key ? "page" : undefined}>{page.label}</Link>)}</nav>
-      <div className="header-actions"><Link href="/sobre" className="button button-primary header-cta" data-testid="link-header-about">Começar</Link><button className="icon-button menu-button" onClick={() => setOpen((value) => !value)} aria-expanded={open} aria-label={open ? "Fechar navegação" : "Abrir navegação"} data-testid="button-mobile-menu">{open ? <X size={19} /> : <Menu size={19} />}</button></div>
+       <div className="header-actions"><JourneyLink href="/inclusao" className="button button-primary header-cta" dataTestId="link-header-start">Começar</JourneyLink><button className="icon-button menu-button" onClick={() => setOpen((value) => !value)} aria-expanded={open} aria-label={open ? "Fechar navegação" : "Abrir navegação"} data-testid="button-mobile-menu">{open ? <X size={19} /> : <Menu size={19} />}</button></div>
     </div>
     <nav className={`mobile-nav ${open ? "open" : ""}`} aria-label="Navegação móvel">{pages.map((page) => <Link key={page.key} href={page.href} className="nav-link" data-testid={`link-mobile-${page.key}`} aria-current={active === page.key ? "page" : undefined}>{page.label}</Link>)}</nav>
   </header>;
@@ -117,6 +117,28 @@ function Accessibility() {
   </div>;
 }
 
+function JourneyLink({ href, children, className = "", dataTestId }: { href: string; children: ReactNode; className?: string; dataTestId?: string }) {
+  const [, navigate] = useLocation();
+  const [launching, setLaunching] = useState(false);
+
+  function startJourney(event: MouseEvent<HTMLAnchorElement>) {
+    event.preventDefault();
+    if (launching) return;
+    setLaunching(true);
+    window.setTimeout(() => navigate(href), 720);
+  }
+
+  return <>
+    <a href={href} className={`${className} journey-link ${launching ? "is-launching" : ""}`} onClick={startJourney} aria-busy={launching} data-testid={dataTestId}>
+      {children}
+    </a>
+    {launching && <div className="journey-transition" role="status" aria-live="polite">
+      <div className="journey-orbit" aria-hidden="true" />
+      <div className="journey-message"><strong>Vamos começar.</strong><span>Abrindo um novo caminho para você.</span></div>
+    </div>}
+  </>;
+}
+
 function PageHero({ eyebrow, title, text, image, imageAlt, links = [] }: { eyebrow: string; title: string; text: string; image?: string; imageAlt?: string; links?: { href: string; label: string }[] }) {
   return <section className="page-hero"><div className="container reveal"><span className="eyebrow">{eyebrow}</span><h1>{title}</h1><p>{text}</p>{links.length > 0 && <nav className="section-nav" aria-label="Nesta página">{links.map((link) => <a href={link.href} key={link.href} data-testid={`link-section-${link.href.slice(1)}`}>{link.label}</a>)}</nav>}</div>{image && <div className="page-hero-image"><img src={image} alt={imageAlt ?? ""} /></div>}</section>;
 }
@@ -135,7 +157,7 @@ function EditorialImage({ src, alt, label }: { src: string; alt: string; label: 
 
 function HomePage() {
   return <>
-    <section className="hero" aria-labelledby="hero-title"><div className="container"><div className="hero-content reveal"><span className="eyebrow" style={{ color: "var(--sun)" }}>Portal educativo sobre autismo</span><h1 id="hero-title">Conexão além do espectro.</h1><p className="lede">Informação acolhedora, ciência e caminhos práticos para construir mais compreensão no cotidiano.</p><div className="hero-actions"><a className="button button-primary" href="#destaques" data-testid="link-explore">Começar a explorar <ArrowDown size={16} /></a><Link href="/sobre" className="button button-quiet" data-testid="link-project">Conheça o projeto</Link></div><div className="hero-tags" aria-label="Para quem é o portal"><span className="tag">Famílias</span><span className="tag">Educadores</span><span className="tag">Profissionais</span><span className="tag">Pessoas autistas</span></div></div><div className="hero-side-note"><strong>01</strong>Um lugar para perguntar, aprender e encontrar próximos passos.</div></div></section>
+     <section className="hero" aria-labelledby="hero-title"><div className="container"><div className="hero-content reveal"><span className="eyebrow" style={{ color: "var(--sun)" }}>Portal educativo sobre autismo</span><h1 id="hero-title">Conexão além do espectro.</h1><p className="lede">Informação acolhedora, ciência e caminhos práticos para construir mais compreensão no cotidiano.</p><div className="hero-actions"><JourneyLink href="/inclusao" className="button button-primary" dataTestId="link-explore">Começar a explorar <ArrowDown size={16} /></JourneyLink><Link href="/sobre" className="button button-quiet" data-testid="link-project">Conheça o projeto</Link></div><div className="hero-tags" aria-label="Para quem é o portal"><span className="tag">Famílias</span><span className="tag">Educadores</span><span className="tag">Profissionais</span><span className="tag">Pessoas autistas</span></div></div><div className="hero-side-note"><strong>01</strong>Um lugar para perguntar, aprender e encontrar próximos passos.</div></div></section>
     <div className="marquee" aria-label="Temas do portal"><div className="marquee-track"><span>escuta <i /> acessibilidade <i /> autonomia <i /> representatividade <i /> informação confiável <i /> escuta <i /> acessibilidade <i /> autonomia <i /> representatividade <i /></span></div></div>
     <section className="feature-section" id="destaques"><div className="container"><div className="section-intro"><div><SectionKicker>Destaques</SectionKicker><h2>Comece pelo que você precisa agora.</h2></div><p className="lede">Três portas de entrada para entender, apoiar e ampliar a participação — sem transformar uma pessoa em um diagnóstico.</p></div><div className="feature-grid">
       <Link href="/inclusao" className="feature-card feature-card-large" data-testid="card-feature-educacao"><img src="/assets/editorial/official/inclusao/inclusao_escolar.png" alt="Duas pessoas colaboram em uma atividade de aprendizagem" /><div className="feature-overlay"><span className="eyebrow">01 / educação</span><h3>Aprender é participar.</h3><p>Da sala de aula ao trabalho, acessibilidade começa antes da barreira aparecer.</p><span className="text-link">Ler sobre inclusão <ArrowRight size={15} /></span></div></Link>
