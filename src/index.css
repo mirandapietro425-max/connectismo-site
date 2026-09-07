@@ -3401,8 +3401,17 @@ h3 {
 }
 .page-layout {
   display: grid;
-  grid-template-columns: .8fr 1.2fr;
+  grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr);
   gap: clamp(2rem, 7vw, 7rem);
+}
+.page-layout > * {
+  min-width: 0;
+}
+.page-layout:has(> .page-sticky:empty) {
+  grid-template-columns: minmax(0, 1fr);
+}
+.page-layout > .page-sticky:empty {
+  display: none;
 }
 .page-sticky {
   align-self: start;
@@ -3415,6 +3424,9 @@ h3 {
 }
 .page-copy p {
   color: var(--muted-foreground);
+}
+.page-copy {
+  min-width: 0;
 }
 .page-copy h3 {
   margin-top: 2.5rem;
@@ -3918,6 +3930,9 @@ h3 {
 .identity-grid img {
   display: block;
   width: 100%;
+  aspect-ratio: 16 / 9;
+  height: auto;
+  min-height: 14rem;
   max-height: 22rem;
   object-fit: cover;
 }
