@@ -114,6 +114,7 @@ function Accessibility() {
   const [readingGuide, setReadingGuide] = useState(false);
   const [guideY, setGuideY] = useState(0);
   const [speaking, setSpeaking] = useState(false);
+  const [helpersOpen, setHelpersOpen] = useState(false);
 
   useEffect(() => {
     document.body.classList.toggle("fonte-grande", fontSize === "large");
@@ -181,8 +182,23 @@ function Accessibility() {
   ];
   const activeCount = choices.filter((choice) => choice.value).length + (fontSize !== "normal" ? 1 : 0);
   const fontLabels = { normal: "Padrão", large: "Grande", extra: "Muito grande" };
+  const helpWithReading = () => { readPage(); setHelpersOpen(false); };
+  const helpWithText = () => { setFontSize(fontSize === "extra" ? "extra" : "large"); setHelpersOpen(false); };
+  const helpWithCalm = () => { setPaused(true); setReadingGuide(false); setHelpersOpen(false); };
 
   return <div className="accessibility">
+    <div className={"access-helpers " + (helpersOpen ? "open" : "")}>
+      {helpersOpen && <div className="helper-bubble" role="dialog" aria-label="Personagens de ajuda">
+        <div className="helper-bubble-head"><div><span className="access-overline">Ajuda rápida</span><strong>Encontre seu ritmo</strong></div><button className="helper-close" onClick={() => setHelpersOpen(false)} aria-label="Fechar personagens de ajuda"><X size={15} /></button></div>
+        <p>Escolha um personagem para ajustar a experiência sem abrir o painel completo.</p>
+        <div className="helper-grid">
+          <button className="helper-card" onClick={helpWithReading} aria-label="Ouvir o conteúdo da página"><span className="helper-avatar helper-coral" aria-hidden="true" /><strong>Ouvir</strong><small>Leio para você</small></button>
+          <button className="helper-card" onClick={helpWithText} aria-label="Aumentar o tamanho do texto"><span className="helper-avatar helper-lilac" aria-hidden="true" /><strong>Ler</strong><small>Texto maior</small></button>
+          <button className="helper-card" onClick={helpWithCalm} aria-label="Pausar movimentos da página"><span className="helper-avatar helper-sun" aria-hidden="true" /><strong>Calma</strong><small>Menos movimento</small></button>
+        </div>
+      </div>}
+      <button className="helper-toggle" onClick={() => setHelpersOpen((value) => !value)} aria-expanded={helpersOpen} aria-label={helpersOpen ? "Fechar personagens de ajuda" : "Abrir personagens de ajuda"} data-testid="button-accessibility-helpers"><span className="helper-faces" aria-hidden="true"><span className="helper-avatar helper-coral" /><span className="helper-avatar helper-lilac" /><span className="helper-avatar helper-sun" /></span><span className="helper-toggle-label">Precisa de ajuda?</span></button>
+    </div>
     {readingGuide && <div className="reading-guide" style={{ top: guideY }} aria-hidden="true" />}
     {open && <div id="accessibility-panel" className="access-panel" role="dialog" aria-label="Opções de acessibilidade">
       <div className="access-panel-head"><div><span className="access-overline">Acessibilidade</span><h3>Personalize sua experiência</h3><p>Ative apenas o que você precisa. As opções ficam nesta sessão.</p></div><button className="access-close" onClick={() => setOpen(false)} aria-label="Fechar opções de acessibilidade"><X size={17} /></button></div>
