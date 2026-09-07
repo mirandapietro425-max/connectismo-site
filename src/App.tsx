@@ -94,7 +94,7 @@ function Header({ active }: { active: PageKey }) {
   return <header className="site-header">
     <a href="#conteudo" className="skip-link">Ir ao conteúdo</a>
     <div className="header-inner">
-       <Link href="/" className="brand" data-testid="link-brand" aria-label="ConnecTismo, página inicial"><img className="brand-logo" src="/assets/connectismo-icon-pessoas-64.png" alt="Logo ConnecTismo com três cabeças estilizadas" /></Link>
+       <Link href="/" className="brand" data-testid="link-brand" aria-label="ConnecTismo, página inicial"><img className="brand-logo" src="/assets/connectismo-icon-pessoas-64.png" alt="Logo ConnecTismo com três cabeças estilizadas" /><span className="brand-name">ConnecTismo</span></Link>
        <nav className="desktop-nav" aria-label="Navegação principal">{pages.map((page) => <Link key={page.key} href={page.href} className={`nav-link ${page.key === "sobre" ? "nav-project" : ""}`} data-testid={`link-nav-${page.key}`} aria-current={active === page.key ? "page" : undefined}>{page.label}</Link>)}</nav>
        <div className="header-actions"><button className="icon-button menu-button" onClick={() => setOpen((value) => !value)} aria-expanded={open} aria-label={open ? "Fechar navegação" : "Abrir navegação"} data-testid="button-mobile-menu">{open ? <X size={19} /> : <Menu size={19} />}</button></div>
     </div>
