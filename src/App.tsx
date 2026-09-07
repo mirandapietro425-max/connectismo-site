@@ -104,16 +104,94 @@ function Header({ active }: { active: PageKey }) {
 
 function Accessibility() {
   const [open, setOpen] = useState(false);
-  const [large, setLarge] = useState(false);
+  const [fontSize, setFontSize] = useState<"normal" | "large" | "extra">("normal");
   const [contrast, setContrast] = useState(false);
   const [paused, setPaused] = useState(false);
-  useEffect(() => { document.body.classList.toggle("fonte-grande", large); return () => document.body.classList.remove("fonte-grande"); }, [large]);
+  const [spacing, setSpacing] = useState(false);
+  const [readableFont, setReadableFont] = useState(false);
+  const [underlinedLinks, setUnderlinedLinks] = useState(false);
+  const [largeCursor, setLargeCursor] = useState(false);
+  const [readingGuide, setReadingGuide] = useState(false);
+  const [guideY, setGuideY] = useState(0);
+  const [speaking, setSpeaking] = useState(false);
+
+  useEffect(() => {
+    document.body.classList.toggle("fonte-grande", fontSize === "large");
+    document.body.classList.toggle("fonte-extra-grande", fontSize === "extra");
+    return () => {
+      document.body.classList.remove("fonte-grande", "fonte-extra-grande");
+    };
+  }, [fontSize]);
   useEffect(() => { document.body.classList.toggle("alto-contraste", contrast); return () => document.body.classList.remove("alto-contraste"); }, [contrast]);
   useEffect(() => { document.body.classList.toggle("pausar-movimento", paused); return () => document.body.classList.remove("pausar-movimento"); }, [paused]);
-  const choices = [{ label: "Aumentar fonte", value: large, set: setLarge }, { label: "Alto contraste", value: contrast, set: setContrast }, { label: "Pausar movimento", value: paused, set: setPaused }];
+  useEffect(() => { document.body.classList.toggle("leitura-confortavel", spacing); return () => document.body.classList.remove("leitura-confortavel"); }, [spacing]);
+  useEffect(() => { document.body.classList.toggle("fonte-legivel", readableFont); return () => document.body.classList.remove("fonte-legivel"); }, [readableFont]);
+  useEffect(() => { document.body.classList.toggle("sublinhar-links", underlinedLinks); return () => document.body.classList.remove("sublinhar-links"); }, [underlinedLinks]);
+  useEffect(() => { document.body.classList.toggle("cursor-ampliado", largeCursor); return () => document.body.classList.remove("cursor-ampliado"); }, [largeCursor]);
+  useEffect(() => {
+    if (!open) return;
+    const closeWithEscape = (event: KeyboardEvent) => { if (event.key === "Escape") setOpen(false); };
+    window.addEventListener("keydown", closeWithEscape);
+    return () => window.removeEventListener("keydown", closeWithEscape);
+  }, [open]);
+  useEffect(() => {
+    if (!readingGuide) return;
+    const followPointer = (event: MouseEvent) => setGuideY(event.clientY);
+    window.addEventListener("mousemove", followPointer);
+    return () => window.removeEventListener("mousemove", followPointer);
+  }, [readingGuide]);
+
+  const stopSpeaking = () => {
+    if (typeof window !== "undefined" && "speechSynthesis" in window) window.speechSynthesis.cancel();
+    setSpeaking(false);
+  };
+  const readPage = () => {
+    if (typeof window === "undefined" || !("speechSynthesis" in window)) return;
+    if (speaking) { stopSpeaking(); return; }
+    const text = document.querySelector("main")?.textContent?.replace(new RegExp("\\s+", "g"), " ").trim();
+    if (!text) return;
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = "pt-BR";
+    utterance.rate = .92;
+    utterance.onend = () => setSpeaking(false);
+    utterance.onerror = () => setSpeaking(false);
+    setSpeaking(true);
+    window.speechSynthesis.cancel();
+    window.speechSynthesis.speak(utterance);
+  };
+  const resetAll = () => {
+    stopSpeaking();
+    setFontSize("normal");
+    setContrast(false);
+    setPaused(false);
+    setSpacing(false);
+    setReadableFont(false);
+    setUnderlinedLinks(false);
+    setLargeCursor(false);
+    setReadingGuide(false);
+  };
+  const choices = [
+    { id: "contrast", label: "Alto contraste", hint: "Mais diferença entre texto e fundo.", value: contrast, set: setContrast },
+    { id: "paused", label: "Pausar movimento", hint: "Desliga animações e transições.", value: paused, set: setPaused },
+    { id: "spacing", label: "Leitura confortável", hint: "Aumenta espaços entre linhas e letras.", value: spacing, set: setSpacing },
+    { id: "readable-font", label: "Fonte mais legível", hint: "Usa uma fonte simples e direta.", value: readableFont, set: setReadableFont },
+    { id: "underlined-links", label: "Sublinhar links", hint: "Deixa os links mais fáceis de localizar.", value: underlinedLinks, set: setUnderlinedLinks },
+    { id: "large-cursor", label: "Cursor ampliado", hint: "Facilita localizar o ponteiro.", value: largeCursor, set: setLargeCursor },
+    { id: "reading-guide", label: "Guia de leitura", hint: "Acompanha o ponteiro para orientar a linha.", value: readingGuide, set: setReadingGuide },
+  ];
+  const activeCount = choices.filter((choice) => choice.value).length + (fontSize !== "normal" ? 1 : 0);
+  const fontLabels = { normal: "Padrão", large: "Grande", extra: "Muito grande" };
+
   return <div className="accessibility">
-    {open && <div className="access-panel" role="dialog" aria-label="Opções de acessibilidade"><h3>Personalize sua leitura</h3>{choices.map((choice) => <button key={choice.label} className="access-choice" aria-pressed={choice.value} onClick={() => choice.set(!choice.value)} data-testid={`button-access-${choice.label.toLowerCase().replaceAll(" ", "-")}`}><span>{choice.label}</span><span className="toggle" aria-hidden="true" /></button>)}</div>}
-    <button className="access-toggle" onClick={() => setOpen((value) => !value)} aria-expanded={open} data-testid="button-accessibility"><Eye size={16} /> Acessibilidade</button>
+    {readingGuide && <div className="reading-guide" style={{ top: guideY }} aria-hidden="true" />}
+    {open && <div id="accessibility-panel" className="access-panel" role="dialog" aria-label="Opções de acessibilidade">
+      <div className="access-panel-head"><div><span className="access-overline">Acessibilidade</span><h3>Personalize sua experiência</h3><p>Ative apenas o que você precisa. As opções ficam nesta sessão.</p></div><button className="access-close" onClick={() => setOpen(false)} aria-label="Fechar opções de acessibilidade"><X size={17} /></button></div>
+      <div className="access-section"><span className="access-label">Tamanho do texto</span><div className="access-stepper"><button onClick={() => setFontSize(fontSize === "extra" ? "large" : "normal")} aria-label="Diminuir tamanho do texto">A−</button><strong aria-live="polite">{fontLabels[fontSize]}</strong><button onClick={() => setFontSize(fontSize === "normal" ? "large" : "extra")} aria-label="Aumentar tamanho do texto">A+</button></div></div>
+      <div className="access-list">{choices.map((choice) => <button key={choice.id} className="access-choice" aria-pressed={choice.value} onClick={() => choice.set(!choice.value)} data-testid={"button-access-" + choice.id}><span><strong>{choice.label}</strong><small>{choice.hint}</small></span><span className="toggle" aria-hidden="true" /></button>)}</div>
+      <div className="access-actions"><button className="access-action" onClick={readPage} aria-pressed={speaking}><Volume2 size={16} /> {speaking ? "Parar leitura" : "Ler página em voz alta"}</button><button className="access-reset" onClick={resetAll}>Restaurar padrão</button></div>
+      <p className="access-status" aria-live="polite">{activeCount === 0 ? "Configuração padrão ativa" : activeCount + " recurso" + (activeCount === 1 ? " ativo" : "s ativos")}</p>
+    </div>}
+    <button className="access-toggle" onClick={() => setOpen((value) => !value)} aria-expanded={open} aria-controls="accessibility-panel" aria-label={open ? "Fechar painel de acessibilidade" : "Abrir painel de acessibilidade"} data-testid="button-accessibility"><Eye size={16} /> Acessibilidade</button>
   </div>;
 }
 
