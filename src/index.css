@@ -3400,15 +3400,18 @@ h3 {
   background: var(--paper);
 }
 .page-layout {
-  display: grid;
-  grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr);
+  display: flex;
+  align-items: flex-start;
   gap: clamp(2rem, 7vw, 7rem);
 }
 .page-layout > * {
   min-width: 0;
 }
-.page-layout:has(> .page-sticky:empty) {
-  grid-template-columns: minmax(0, 1fr);
+.page-layout > .page-sticky {
+  flex: 0 1 40%;
+}
+.page-layout > .page-copy {
+  flex: 1 1 60%;
 }
 .page-layout > .page-sticky:empty {
   display: none;
@@ -4343,9 +4346,17 @@ h3 {
     position: static;
     margin-top: 3.5rem;
   }
-  .intro-grid, .band-grid, .quote-wrap, .page-layout, .quiz-shell {
+  .intro-grid, .band-grid, .quote-wrap, .quiz-shell {
     grid-template-columns: 1fr;
     gap: 2rem;
+  }
+  .page-layout {
+    flex-direction: column;
+    gap: 2rem;
+  }
+  .page-layout > .page-sticky,
+  .page-layout > .page-copy {
+    flex-basis: auto;
   }
   .home-intro {
     padding-block: 5rem;
