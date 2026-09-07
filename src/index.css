@@ -5453,6 +5453,11 @@ body.alto-contraste button {
   object-position: 74% center;
 }
 
+/* Mostra a mae junto com o menino na capa de Dicas praticas. */
+.page-hero-image img[src*="connectismo_dicas"] {
+  object-position: 100% center;
+}
+
 /* A mascote orienta a escolha sem substituir texto ou controle. */
 .access-toggle {
   position: relative;
