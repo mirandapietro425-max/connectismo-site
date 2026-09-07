@@ -125,7 +125,7 @@ function JourneyLink({ href, children, className = "", dataTestId }: { href: str
     event.preventDefault();
     if (launching) return;
     setLaunching(true);
-    window.setTimeout(() => navigate(href), 720);
+    window.setTimeout(() => navigate(href), 850);
   }
 
   return <>
