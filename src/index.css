@@ -5464,7 +5464,7 @@ body.alto-contraste button {
 }
 .access-toggle-mascot {
   display: inline-flex;
-  align-items: flex-end;
+  align-items: flex-start;
   justify-content: center;
   width: 2.15rem;
   height: 2.35rem;
@@ -5477,8 +5477,8 @@ body.alto-contraste button {
   width: 150%;
   height: 150%;
   object-fit: contain;
-  object-position: center bottom;
-  transform: translateY(.12rem);
+  object-position: center top;
+  transform: translateY(0);
 }
 .access-count {
   display: inline-grid;
