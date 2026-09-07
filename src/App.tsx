@@ -130,11 +130,12 @@ function JourneyLink({ href, children, className = "", dataTestId }: { href: str
 
   return <>
     <a href={href} className={`${className} journey-link ${launching ? "is-launching" : ""}`} onClick={startJourney} aria-busy={launching} data-testid={dataTestId}>
-      {children}
+      <span className="journey-label">{children}</span>
+      <span className="journey-status" aria-hidden="true"><span className="journey-spinner" />Abrindo</span>
     </a>
     {launching && <div className="journey-transition" role="status" aria-live="polite">
-      <div className="journey-orbit" aria-hidden="true" />
-      <div className="journey-message"><strong>Vamos começar.</strong><span>Abrindo um novo caminho para você.</span></div>
+      <div className="journey-signal" aria-hidden="true"><span /><span /><span /></div>
+      <div className="journey-message"><span className="journey-kicker">Próximo caminho</span><strong>Inclusão</strong><span>abrindo agora</span></div>
     </div>}
   </>;
 }
