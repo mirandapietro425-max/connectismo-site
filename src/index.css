@@ -5446,3 +5446,9 @@ body.alto-contraste button {
     margin-top: 1.5rem;
   }
 }
+
+
+/* Mostra a mae junto com o menino na capa de Inclusao. */
+.page-hero-image img[src*="connectismo_inclusao"] {
+  object-position: 74% center;
+}
