@@ -2780,6 +2780,75 @@ h3 {
 .button:hover {
   transform: translateY(-2px);
 }
+.journey-link {
+  position: relative;
+  isolation: isolate;
+}
+.journey-link.is-launching {
+  pointer-events: none;
+}
+.journey-transition {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background: var(--teal-deep);
+  pointer-events: none;
+  animation: journey-curtain .72s cubic-bezier(.76, 0, .18, 1) both;
+}
+.journey-transition::before,
+.journey-transition::after {
+  position: absolute;
+  border-radius: 50%;
+  content: '';
+}
+.journey-transition::before {
+  width: 90vmax;
+  height: 90vmax;
+  background: radial-gradient(circle, rgba(255,182,46,.96) 0%, rgba(255,182,46,.18) 42%, transparent 70%);
+  filter: blur(2px);
+  animation: journey-bloom .72s ease-out both;
+}
+.journey-transition::after {
+  width: 42vmax;
+  height: 42vmax;
+  border: 1px solid rgba(248,242,231,.36);
+  box-shadow: 0 0 0 2vmax rgba(248,242,231,.05), 0 0 0 6vmax rgba(238,107,77,.16);
+  animation: journey-ring .72s cubic-bezier(.2, .8, .2, 1) both;
+}
+.journey-orbit {
+  position: absolute;
+  width: 58vmax;
+  height: 18vmax;
+  border: 1px solid rgba(248,242,231,.42);
+  border-radius: 50%;
+  transform: rotate(-24deg);
+  animation: journey-orbit .72s ease-out both;
+}
+.journey-message {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: .55rem;
+  color: var(--paper);
+  text-align: center;
+  animation: journey-message .72s ease-out both;
+}
+.journey-message strong {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 8vw, 6.5rem);
+  letter-spacing: -.06em;
+  line-height: .9;
+}
+.journey-message span {
+  color: rgba(248,242,231,.75);
+  font-family: var(--font-mono);
+  font-size: .72rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
 .button:focus-visible, .icon-button:focus-visible, .nav-link:focus-visible, .quiz-option:focus-within {
   outline: 3px solid rgba(239,198,94,.8);
   outline-offset: 3px;
@@ -3400,18 +3469,15 @@ h3 {
   background: var(--paper);
 }
 .page-layout {
-  display: flex;
-  align-items: flex-start;
+  display: grid;
+  grid-template-columns: minmax(0, .72fr) minmax(0, 1.28fr);
   gap: clamp(2rem, 7vw, 7rem);
 }
 .page-layout > * {
   min-width: 0;
 }
-.page-layout > .page-sticky {
-  flex: 0 1 40%;
-}
-.page-layout > .page-copy {
-  flex: 1 1 60%;
+.page-layout:has(> .page-sticky:empty) {
+  grid-template-columns: minmax(0, 1fr);
 }
 .page-layout > .page-sticky:empty {
   display: none;
@@ -4149,6 +4215,60 @@ h3 {
     transform: translateY(0);
   }
 }
+@keyframes journey-curtain {
+  from {
+    opacity: 0;
+    clip-path: circle(0 at 50% 50%);
+  }
+  to {
+    opacity: 1;
+    clip-path: circle(150% at 50% 50%);
+  }
+}
+@keyframes journey-bloom {
+  from {
+    opacity: 0;
+    transform: scale(.18) rotate(-18deg);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1.15) rotate(8deg);
+  }
+}
+@keyframes journey-ring {
+  from {
+    opacity: 0;
+    transform: scale(.2) rotate(-20deg);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) rotate(12deg);
+  }
+}
+@keyframes journey-orbit {
+  from {
+    opacity: 0;
+    transform: scale(.3) rotate(-24deg);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) rotate(18deg);
+  }
+}
+@keyframes journey-message {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(.94);
+  }
+  55% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(-4px) scale(1.02);
+  }
+}
 @keyframes scroll-track {
   to {
     transform: translateX(-50%);
@@ -4313,7 +4433,7 @@ h3 {
   opacity: .9;
   content: '';
 }
-@media (max-width: 900px) {
+@media (max-width: 1100px) {
   .desktop-nav {
     display: none;
   }
@@ -4351,12 +4471,8 @@ h3 {
     gap: 2rem;
   }
   .page-layout {
-    flex-direction: column;
+    grid-template-columns: 1fr;
     gap: 2rem;
-  }
-  .page-layout > .page-sticky,
-  .page-layout > .page-copy {
-    flex-basis: auto;
   }
   .home-intro {
     padding-block: 5rem;
@@ -4435,6 +4551,9 @@ h3 {
   }
   .culture-shelf {
     gap: .55rem;
+  }
+  .video-pair, .myths-video-grid {
+    grid-template-columns: 1fr;
   }
   .book-info {
     padding: .7rem;
