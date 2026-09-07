@@ -2796,7 +2796,8 @@ h3 {
   overflow: hidden;
   background: var(--teal-deep);
   pointer-events: none;
-  animation: journey-curtain .72s cubic-bezier(.76, 0, .18, 1) both;
+  will-change: opacity, transform;
+  animation: journey-curtain .85s ease-out both;
 }
 .journey-transition::before,
 .journey-transition::after {
@@ -2809,14 +2810,14 @@ h3 {
   height: 90vmax;
   background: radial-gradient(circle, rgba(255,182,46,.96) 0%, rgba(255,182,46,.18) 42%, transparent 70%);
   filter: blur(2px);
-  animation: journey-bloom .72s ease-out both;
+  animation: journey-bloom .85s ease-out both;
 }
 .journey-transition::after {
   width: 42vmax;
   height: 42vmax;
   border: 1px solid rgba(248,242,231,.36);
   box-shadow: 0 0 0 2vmax rgba(248,242,231,.05), 0 0 0 6vmax rgba(238,107,77,.16);
-  animation: journey-ring .72s cubic-bezier(.2, .8, .2, 1) both;
+  animation: journey-ring .85s cubic-bezier(.2, .8, .2, 1) both;
 }
 .journey-orbit {
   position: absolute;
@@ -2825,7 +2826,7 @@ h3 {
   border: 1px solid rgba(248,242,231,.42);
   border-radius: 50%;
   transform: rotate(-24deg);
-  animation: journey-orbit .72s ease-out both;
+  animation: journey-orbit .85s ease-out both;
 }
 .journey-message {
   position: relative;
@@ -2834,7 +2835,7 @@ h3 {
   gap: .55rem;
   color: var(--paper);
   text-align: center;
-  animation: journey-message .72s ease-out both;
+  animation: journey-message .85s ease-out both;
 }
 .journey-message strong {
   font-family: var(--font-display);
@@ -3469,32 +3470,42 @@ h3 {
   background: var(--paper);
 }
 .page-layout {
-  display: grid;
-  grid-template-columns: minmax(0, .72fr) minmax(0, 1.28fr);
-  gap: clamp(2rem, 7vw, 7rem);
+  display: block;
+  width: min(100%, 980px);
+  margin-inline: auto;
 }
 .page-layout > * {
   min-width: 0;
-}
-.page-layout:has(> .page-sticky:empty) {
-  grid-template-columns: minmax(0, 1fr);
 }
 .page-layout > .page-sticky:empty {
   display: none;
 }
 .page-sticky {
-  align-self: start;
-  position: sticky;
-  top: 7rem;
+  display: grid;
+  grid-template-columns: minmax(0, .95fr) minmax(15rem, .7fr);
+  gap: 2rem 4rem;
+  align-items: end;
+  position: static;
+  max-width: 920px;
+  margin-bottom: 4rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--line);
 }
 .page-sticky h2 {
-  max-width: 8ch;
+  max-width: 14ch;
   margin: .9rem 0 1.2rem;
+}
+.page-sticky .lede {
+  max-width: 38ch;
+}
+.page-sticky .reading-progress {
+  margin-top: 0;
 }
 .page-copy p {
   color: var(--muted-foreground);
 }
 .page-copy {
+  width: 100%;
   min-width: 0;
 }
 .page-copy h3 {
@@ -4218,11 +4229,11 @@ h3 {
 @keyframes journey-curtain {
   from {
     opacity: 0;
-    clip-path: circle(0 at 50% 50%);
+    transform: scale(.96);
   }
   to {
     opacity: 1;
-    clip-path: circle(150% at 50% 50%);
+    transform: scale(1);
   }
 }
 @keyframes journey-bloom {
@@ -4539,6 +4550,13 @@ h3 {
   }
   .page-body {
     padding-block: 3.5rem 5rem;
+  }
+  .page-sticky {
+    display: block;
+    margin-bottom: 3rem;
+  }
+  .page-sticky .reading-progress {
+    margin-top: 2rem;
   }
   .series-row {
     grid-template-columns: 1fr;
