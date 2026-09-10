@@ -5767,3 +5767,26 @@ body.alto-contraste button {
     width: min(20rem, calc(100vw - 1.5rem));
   }
 }
+
+
+/* Cabeçalhos mobile: preservar a leitura das imagens sem competir com o texto. */
+@media (max-width: 640px) {
+  .page-hero-image {
+    height: 64%;
+    opacity: .5;
+  }
+
+  .page-hero-image img {
+    object-position: center 35%;
+    animation: none;
+  }
+
+  .page-hero-image::after {
+    background: linear-gradient(
+      180deg,
+      rgba(18, 57, 91, .98) 0%,
+      rgba(18, 57, 91, .62) 30%,
+      rgba(18, 57, 91, .08) 100%
+    );
+  }
+}
