@@ -232,7 +232,7 @@ const tipsLibrasSignals = librasSignals.filter((signal) => ["comunicacao", "apoi
 function LibrasSignalGrid({ signals = librasSignals, compact = false }: { signals?: LibrasSignal[]; compact?: boolean }) {
   return <div className={"libras-grid " + (compact ? "libras-grid-compact" : "")}>
     {signals.map((signal) => <article className="libras-card" key={signal.slug} data-testid={"card-libras-" + signal.slug}>
-      <img src={"/assets/libras/" + signal.slug + ".png"} alt={"Sinal em Libras para " + signal.label} loading="lazy" decoding="async" />
+      <div className="libras-placeholder" aria-label={"Sinal em Libras para " + signal.label} role="img"><span aria-hidden="true">Libras</span></div>
       <div className="libras-card-content"><span className="libras-card-kicker">Libras</span><h3>{signal.label}</h3><p>{signal.description}</p></div>
     </article>)}
   </div>;
