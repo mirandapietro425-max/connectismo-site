@@ -5458,7 +5458,6 @@ body.alto-contraste button {
   object-position: 100% center;
 }
 
-/* A mascote orienta a escolha sem substituir texto ou controle. */
 .access-toggle {
   position: relative;
   gap: .45rem;
@@ -5788,5 +5787,37 @@ body.alto-contraste button {
       rgba(18, 57, 91, .62) 30%,
       rgba(18, 57, 91, .08) 100%
     );
+  }
+}
+
+
+/* Ajustes finais: acessibilidade sem personagens e layout confortável em telas pequenas. */
+.access-panel-photo {
+  width: 8rem;
+  height: 8rem;
+  object-fit: cover;
+  border-radius: 1.25rem;
+  border: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
+  box-shadow: 0 1rem 2rem rgba(31, 42, 68, .12);
+}
+
+@media (max-width: 640px) {
+  .access-panel {
+    width: min(calc(100vw - 2rem), 28rem);
+    max-height: min(78vh, 38rem);
+    overflow-y: auto;
+  }
+
+  .access-panel-head {
+    gap: 1rem;
+  }
+
+  .access-panel-photo {
+    width: 5.5rem;
+    height: 5.5rem;
+  }
+
+  .access-toggle {
+    max-width: calc(100vw - 2rem);
   }
 }
