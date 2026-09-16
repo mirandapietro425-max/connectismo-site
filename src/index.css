@@ -3412,21 +3412,21 @@ h3 {
   position: relative;
   grid-row: 2;
   min-height: 0;
-  padding: 1.25rem;
+  padding: 1rem 1.1rem;
   z-index: 1;
   background: var(--teal-deep);
 }
 .feature-overlay h3 {
   max-width: 10ch;
-  margin: .7rem 0;
+  margin: .45rem 0 .6rem;
   color: var(--paper);
   font-family: var(--font-display);
-  font-size: clamp(1.8rem, 3vw, 2.9rem);
+  font-size: clamp(1.7rem, 2.5vw, 2.35rem);
   line-height: 1;
 }
 .feature-overlay p {
   max-width: 30ch;
-  margin-bottom: .9rem;
+  margin-bottom: .65rem;
   color: rgba(248,242,231,.8);
   font-size: .86rem;
 }
