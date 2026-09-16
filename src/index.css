@@ -5537,3 +5537,18 @@ body.alto-contraste button {
 /* Azul um pouco mais claro na seção de suporte, com contraste preservado. */
 .home-band .support-disclaimer { color: rgba(255,255,255,.9); }
 .home-band .support-level dd { color: rgba(255,255,255,.9); }
+
+/* Vídeo principal da Inclusão: escala equilibrada e imagem integral. */
+.inclusion-main-video {
+  width: min(100%, 42rem);
+  margin-right: auto;
+  margin-left: auto;
+}
+.inclusion-main-video .video-frame video {
+  object-fit: contain;
+}
+@media (max-width: 640px) {
+  .inclusion-main-video {
+    width: 100%;
+  }
+}
