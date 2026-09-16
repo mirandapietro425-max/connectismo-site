@@ -3273,7 +3273,7 @@ h3 {
 }
 .home-band {
   padding: 6rem 0;
-  background: var(--teal);
+  background: #17698a;
   color: var(--paper);
 }
 .band-grid {
@@ -5492,7 +5492,6 @@ body.alto-contraste button {
 /* Redesign dos níveis de suporte e conteúdo sobre cordões e direitos. */
 .support-intro { display: grid; grid-template-columns: minmax(0, .85fr) minmax(20rem, 1.15fr); gap: clamp(2rem, 6vw, 5rem); align-items: center; margin-bottom: 2.5rem; }
 .support-copy h2 { max-width: 10ch; }
-.support-note { max-width: 42ch; margin-top: 1.2rem; color: rgba(248,242,231,.72); font-size: .9rem; }
 .support-visual { position: relative; margin: 0; padding: .65rem; background: rgba(255,255,255,.12); box-shadow: 1rem 1.25rem 0 rgba(13,55,66,.22); transform: rotate(1deg); }
 .support-visual img { display: block; width: 100%; aspect-ratio: 1024 / 576; object-fit: cover; }
 .support-visual figcaption { padding: .7rem .35rem .2rem; color: rgba(248,242,231,.72); font-size: .72rem; }
@@ -5534,3 +5533,7 @@ body.alto-contraste button {
 .law-list span { color: rgba(248,242,231,.72); font-size: .75rem; line-height: 1.5; }
 @media (max-width: 900px) { .support-intro, .cordoes-grid, .law-panel { grid-template-columns: 1fr; } .support-levels { grid-template-columns: 1fr; } .support-visual { max-width: 44rem; } }
 @media (max-width: 640px) { .support-intro { gap: 1.8rem; } .support-visual { box-shadow: .55rem .7rem 0 rgba(13,55,66,.22); } .support-level { padding: 1.15rem; } .cordoes-block { margin-top: 2.8rem; } .cordoes-heading h3 { max-width: 13ch; } }
+
+/* Azul um pouco mais claro na seção de suporte, com contraste preservado. */
+.home-band .support-disclaimer { color: rgba(255,255,255,.9); }
+.home-band .support-level dd { color: rgba(255,255,255,.9); }
