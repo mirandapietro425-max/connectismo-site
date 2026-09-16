@@ -3377,7 +3377,7 @@ h3 {
 }
 .feature-grid {
   display: grid;
-  grid-template-columns: 1.2fr .8fr .8fr;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: .9rem;
 }
 .feature-card {
@@ -3389,7 +3389,7 @@ h3 {
   background: var(--teal-deep);
 }
 .feature-card-large {
-  min-height: 32rem;
+  min-height: 25rem;
 }
 .feature-card img {
   display: block;
