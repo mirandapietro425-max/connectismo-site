@@ -3382,6 +3382,8 @@ h3 {
 }
 .feature-card {
   position: relative;
+  display: grid;
+  grid-template-rows: 55% 45%;
   min-height: 25rem;
   overflow: hidden;
   color: var(--paper);
@@ -3393,26 +3395,24 @@ h3 {
 }
 .feature-card img {
   display: block;
+  grid-row: 1;
   width: 100%;
   height: 100%;
   object-fit: cover;
   transition: transform .6s ease;
 }
 .feature-card::after {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, rgba(18,57,91,.02) 25%, rgba(8,31,54,.94) 100%);
-  content: '';
+  display: none;
 }
 .feature-card:hover img {
   transform: scale(1.04);
 }
 .feature-overlay {
-  position: absolute;
-  right: 1.25rem;
-  bottom: 1.25rem;
-  left: 1.25rem;
+  position: relative;
+  grid-row: 2;
+  padding: 1.25rem;
   z-index: 1;
+  background: var(--teal-deep);
 }
 .feature-overlay h3 {
   max-width: 10ch;
