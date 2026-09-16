@@ -5487,3 +5487,50 @@ body.alto-contraste button {
     max-width: calc(100vw - 2rem);
   }
 }
+
+
+/* Redesign dos níveis de suporte e conteúdo sobre cordões e direitos. */
+.support-intro { display: grid; grid-template-columns: minmax(0, .85fr) minmax(20rem, 1.15fr); gap: clamp(2rem, 6vw, 5rem); align-items: center; margin-bottom: 2.5rem; }
+.support-copy h2 { max-width: 10ch; }
+.support-note { max-width: 42ch; margin-top: 1.2rem; color: rgba(248,242,231,.72); font-size: .9rem; }
+.support-visual { position: relative; margin: 0; padding: .65rem; background: rgba(255,255,255,.12); box-shadow: 1rem 1.25rem 0 rgba(13,55,66,.22); transform: rotate(1deg); }
+.support-visual img { display: block; width: 100%; aspect-ratio: 1024 / 576; object-fit: cover; }
+.support-visual figcaption { padding: .7rem .35rem .2rem; color: rgba(248,242,231,.72); font-size: .72rem; }
+.support-levels { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+.support-level { min-height: 100%; padding: 1.35rem; border-top: 3px solid var(--sun); background: rgba(255,255,255,.1); }
+.support-level-2 { border-top-color: #e79265; }
+.support-level-3 { border-top-color: #f0c85b; }
+.support-level-top { display: flex; gap: .8rem; align-items: baseline; }
+.support-level-top strong { color: var(--sun); font-family: var(--font-display); font-size: 2.7rem; line-height: 1; }
+.support-level-top span { color: var(--paper); font-family: var(--font-display); font-size: 1.15rem; line-height: 1.05; }
+.support-old-term { margin: .55rem 0 1.2rem; color: rgba(248,242,231,.58); font-family: var(--font-mono); font-size: .62rem; text-transform: uppercase; letter-spacing: .06em; }
+.support-level dl { display: grid; gap: .9rem; }
+.support-level dl div { padding-top: .75rem; border-top: 1px solid rgba(248,242,231,.18); }
+.support-level dt { margin-bottom: .2rem; color: var(--sun); font-family: var(--font-mono); font-size: .64rem; text-transform: uppercase; letter-spacing: .08em; }
+.support-level dd { color: rgba(248,242,231,.78); font-size: .8rem; line-height: 1.55; }
+.support-disclaimer { margin-top: 1.4rem; padding: 1rem 1.15rem; border-left: 2px solid var(--sun); color: rgba(248,242,231,.72); font-size: .78rem; }
+.support-disclaimer strong { color: var(--paper); }
+.cordoes-block { margin: 3.8rem 0 1.5rem; padding: clamp(1.3rem, 3vw, 2.3rem); background: #f4eee3; border-top: 3px solid var(--coral); }
+.cordoes-heading h3 { max-width: 18ch; margin: .75rem 0 .7rem; color: var(--teal-deep); font-family: var(--font-display); font-size: clamp(1.8rem, 4vw, 3rem); line-height: 1.05; }
+.cordoes-heading > p { max-width: 62ch; }
+.cordoes-grid { display: grid; grid-template-columns: minmax(15rem, .9fr) minmax(0, 1.1fr); gap: 2rem; align-items: start; margin-top: 1.8rem; }
+.cordoes-visual { margin: 0; }
+.cordoes-visual img { display: block; width: 100%; max-height: 25rem; object-fit: contain; background: #087da9; }
+.cordoes-visual figcaption { margin-top: .65rem; color: var(--muted-foreground); font-size: .7rem; line-height: 1.45; }
+.cordoes-meanings { display: grid; gap: .8rem; }
+.cordoes-meanings article { padding: 1rem 1.1rem; background: rgba(255,255,255,.66); border-left: 2px solid var(--sun); }
+.cordoes-meanings article:nth-child(2) { border-left-color: #4bb4ac; }
+.cordoes-meanings article:nth-child(3) { border-left-color: var(--coral); }
+.cordoes-meanings h4 { margin: .35rem 0 .25rem; color: var(--teal-deep); font-family: var(--font-display); font-size: 1.25rem; }
+.cordoes-meanings p { margin-bottom: 0; font-size: .82rem; }
+.cordoes-meanings .number { color: var(--coral); font-family: var(--font-mono); font-size: .68rem; }
+.law-panel { display: grid; grid-template-columns: .8fr 1.2fr; gap: 1.5rem 2rem; margin-top: 2rem; padding: 1.3rem; background: var(--teal-deep); color: var(--paper); }
+.law-panel h4 { margin: .55rem 0 .45rem; color: var(--paper); font-family: var(--font-display); font-size: 1.55rem; }
+.law-panel p { color: rgba(248,242,231,.72); font-size: .82rem; }
+.law-list { display: grid; gap: .85rem; padding: 0; list-style: none; }
+.law-list li { display: grid; gap: .18rem; padding-bottom: .75rem; border-bottom: 1px solid rgba(248,242,231,.18); }
+.law-list li:last-child { padding-bottom: 0; border-bottom: 0; }
+.law-list a { color: var(--sun); font-weight: 800; text-decoration: underline; text-underline-offset: .16em; }
+.law-list span { color: rgba(248,242,231,.72); font-size: .75rem; line-height: 1.5; }
+@media (max-width: 900px) { .support-intro, .cordoes-grid, .law-panel { grid-template-columns: 1fr; } .support-levels { grid-template-columns: 1fr; } .support-visual { max-width: 44rem; } }
+@media (max-width: 640px) { .support-intro { gap: 1.8rem; } .support-visual { box-shadow: .55rem .7rem 0 rgba(13,55,66,.22); } .support-level { padding: 1.15rem; } .cordoes-block { margin-top: 2.8rem; } .cordoes-heading h3 { max-width: 13ch; } }
