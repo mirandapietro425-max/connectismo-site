@@ -3383,16 +3383,16 @@ h3 {
 .feature-card {
   position: relative;
   display: grid;
-  grid-template-rows: 42% 58%;
-  height: 25rem;
-  min-height: 25rem;
+  grid-template-rows: 40% 60%;
+  height: 27rem;
+  min-height: 27rem;
   overflow: hidden;
   color: var(--paper);
   text-decoration: none;
   background: var(--teal-deep);
 }
 .feature-card-large {
-  min-height: 25rem;
+  min-height: 27rem;
 }
 .feature-card img {
   display: block;
@@ -5390,8 +5390,8 @@ body.alto-contraste button {
 @media (max-width: 640px) {
   .feature-card,
   .feature-card-large {
-    height: 24rem;
-    min-height: 24rem;
+    height: 26rem;
+    min-height: 26rem;
   }
 
   main {
@@ -5408,7 +5408,7 @@ body.alto-contraste button {
 
   .feature-card,
   .feature-card-large {
-    min-height: 24rem;
+    min-height: 26rem;
   }
 
   .feature-overlay h3 {
