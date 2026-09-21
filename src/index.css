@@ -3062,7 +3062,7 @@ h3 {
   position: absolute;
   inset: 0;
   z-index: -2;
-  background: linear-gradient(90deg, rgba(7,34,61,.94) 0%, rgba(12,47,78,.78) 42%, rgba(12,47,78,.3) 76%, rgba(12,47,78,.42) 100%), url('/assets/editorial/novas/inicio/inicio_connectismo.png') center 45% / cover no-repeat;
+  background: linear-gradient(90deg, rgba(7,34,61,.94) 0%, rgba(12,47,78,.78) 42%, rgba(12,47,78,.3) 76%, rgba(12,47,78,.42) 100%), url('/assets/editorial/hero-autismo-realista.png') center 45% / cover no-repeat;
   content: '';
   transform: scale(1.04);
   animation: hero-drift 18s ease-in-out infinite alternate;
